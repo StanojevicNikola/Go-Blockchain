@@ -3,6 +3,9 @@ package Blockchain
 import (
 	"../Block"
 	"../Transaction"
+	"../Wallet"
+	"crypto/sha256"
+	"encoding/hex"
 	"encoding/json"
 	"io/ioutil"
 	"os"
@@ -14,6 +17,7 @@ type Blockchain struct {
 	Chain []Block.Block
 	PendingTransactions []Transaction.Transaction
 	CurrentNodeUrl string
+	NetworkNodes []string
 }
 
 func (b *Blockchain) CreateGenesisBlock(){
@@ -62,12 +66,14 @@ func (b *Blockchain) GetLastBlock() (*Block.Block){
 func (b *Blockchain) CreateNewTransaction(amount float64,
 	sender string,
 	recipient string,
-	transactionID string) (Transaction.Transaction) {
+	transactionID string,
+	signature string) (Transaction.Transaction) {
 	transaction := Transaction.Transaction{
 		Amount: amount,
 		Sender: sender,
 		Recipient: recipient,
 		TransactionID: transactionID,
+		Signature: signature,
 	}
 
 	return transaction
@@ -78,9 +84,14 @@ func (b *Blockchain) AddTransactionToPendingTransactions(transaction Transaction
 }
 
 func (b *Blockchain) HashBlock(previousBlockHash string, currentBlockData string, nonce int) string{
+
 	dataAsString := previousBlockHash + strconv.Itoa(nonce) + currentBlockData
 	// staviti pravi hash
-	hash := dataAsString
+	hasher := sha256.New()
+	hasher.Write([]byte(dataAsString))
+	hashedData := hasher.Sum(nil)
+	hash := hex.EncodeToString(hashedData)
+
 	return hash
 }
 
@@ -104,11 +115,11 @@ func (b* Blockchain) ChainIsValid() bool{
 		var currentBlock = b.Chain[i]
 		var previousBlock= b.Chain[i-1]
 
-		currentBlockTransactions, err := json.Marshal(&currentBlock.Transactions)
+		currentBlockTransactions, err := json.MarshalIndent(&currentBlock.Transactions, "", "	")
 		if err != nil{
 			panic(err)
 		}
-		currentBlockIndex, err := json.Marshal(&currentBlock.Index)
+		currentBlockIndex, err := json.MarshalIndent(&currentBlock.Index, "", "	")
 		if err != nil{
 			panic(err)
 		}
@@ -141,11 +152,11 @@ func (b* Blockchain) ChainIsValid() bool{
 
 func (b *Blockchain) SaveData() {
 
-	f, err := os.OpenFile("blockchain.json", os.O_WRONLY|os.O_CREATE, 0755)
+	f, err := os.OpenFile("blockchain.json", os.O_WRONLY|os.O_CREATE | os.O_TRUNC, 0755)
 	if err != nil{
 		panic(err)
 	}
-	currentBlockchain, err := json.Marshal(&b)
+	currentBlockchain, err := json.MarshalIndent(&b, "", "		")
 	if err != nil{
 		panic(err)
 	}
@@ -163,3 +174,27 @@ func (b* Blockchain) LoadData(){
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 	json.Unmarshal(byteValue, &b)
 }
+
+func (b* Blockchain) CalculateBalance(nodeID string) (float64) {
+	var amountSent float64 = 0
+	var amountReceived float64 = 0
+	for _, element := range b.Chain{
+		for _, tr := range element.Transactions{
+			if tr.Recipient == nodeID{
+				amountReceived = amountReceived + tr.Amount
+			}else if tr.Sender == nodeID{
+				amountSent = amountSent + tr.Amount
+			}
+		}
+	}
+
+	return amountReceived - amountSent
+}
+
+func (b* Blockchain) VerifyTransaction(transaction Transaction.Transaction) bool{
+
+	sender_balance := b.CalculateBalance(transaction.Sender)
+	valid := (sender_balance>=transaction.Amount) && Wallet.VerifyTransaction(transaction)
+	return valid
+}
+

@@ -1,19 +1,15 @@
 package main
 
 import (
-	"./structs/Blockchain"
+	"./structs/Wallet"
 	"fmt"
 )
 
 func main(){
 
-	bitcoin := Blockchain.Blockchain{}
 
-	bitcoin.CreateGenesisBlock()
-	bitcoin.CreateNewBlock(123, "asda", "dfgdsfg")
-	bitcoin.CreateNewBlock(321, "dfgdsfg", "XXXXas")
-
-	bitcoin.SaveData()
-	fmt.Println(bitcoin)
-
+	w := Wallet.Wallet{}
+	w.GenerateKeys()
+	signed := w.SignTransaction("Ninna", "Trta", 200)
+	fmt.Print(signed)
 }

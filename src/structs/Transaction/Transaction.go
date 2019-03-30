@@ -9,4 +9,5 @@ type Transaction struct {
 	Sender string
 	Recipient string
 	TransactionID string
+	Signature string
 }
