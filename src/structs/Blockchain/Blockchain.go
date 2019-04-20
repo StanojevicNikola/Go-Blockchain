@@ -38,6 +38,15 @@ func (b *Blockchain) CreateGenesisBlock(){
 
 }
 
+func (b *Blockchain) NodeNotPresent(target string) bool {
+	for _, n := range b.NetworkNodes {
+		if target == n {
+			return false
+		}
+	}
+	return true
+}
+
 func (b *Blockchain) CreateNewBlock(nonce int,
 	previousBlockHash string,
 	hash string) (Block.Block){

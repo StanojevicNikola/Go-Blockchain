@@ -2,38 +2,19 @@
 		"Chain": [
 				{
 						"Index": 1,
-						"Timestamp": "2019-03-30T14:47:44.642414636+01:00",
+						"Timestamp": "2019-04-19T15:35:15.315204663+02:00",
 						"Transactions": null,
 						"Nonce": 100,
 						"Hash": "0",
 						"PreviousBlockHash": "0"
-				},
-				{
-						"Index": 2,
-						"Timestamp": "2019-03-30T14:47:59.457110974+01:00",
-						"Transactions": null,
-						"Nonce": 31514,
-						"Hash": "000009ddcc4c3ee227838a4c4287a3c30b4096d921e449d5335e7263149295ee",
-						"PreviousBlockHash": "0"
-				},
-				{
-						"Index": 3,
-						"Timestamp": "2019-03-30T14:48:14.922509661+01:00",
-						"Transactions": null,
-						"Nonce": 211623,
-						"Hash": "00004a878b77555ad869123d3b2e188a1a0368ea8bfbed79ad8ff545f7f204f8",
-						"PreviousBlockHash": "000009ddcc4c3ee227838a4c4287a3c30b4096d921e449d5335e7263149295ee"
-				},
-				{
-						"Index": 4,
-						"Timestamp": "2019-03-30T14:48:16.450468734+01:00",
-						"Transactions": null,
-						"Nonce": 32315,
-						"Hash": "0000519c5976dbd7fe5cacdcb6be3a530276a8f5fd03a3b62f010577d6dd74dd",
-						"PreviousBlockHash": "00004a878b77555ad869123d3b2e188a1a0368ea8bfbed79ad8ff545f7f204f8"
 				}
 		],
 		"PendingTransactions": null,
 		"CurrentNodeUrl": "",
-		"NetworkNodes": null
+		"NetworkNodes": [
+				"http://localhost:8001",
+				"http://localhost:8000",
+				"http://localhost:8002",
+				"http://localhost:8004"
+		]
 }
