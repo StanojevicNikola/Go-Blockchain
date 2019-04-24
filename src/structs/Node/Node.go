@@ -22,21 +22,27 @@ func main() {
 
 	bitcoin := Blockchain.Blockchain{}
 	bitcoin.CreateGenesisBlock()
+	bitcoin.CurrentNodeUrl = "http://localhost:8000"
+	bitcoin.NetworkNodes = append(bitcoin.NetworkNodes, bitcoin.CurrentNodeUrl)
 	nodeID, _ := uuid.NewUUID()
 	fmt.Print(nodeID)
 
 	r := mux.NewRouter()
 
+
+
+
 	r.HandleFunc("/blockchain", func(writer http.ResponseWriter, request *http.Request) {
 
 		bitcoin.SaveData()
-		fmt.Fprint(writer, bitcoin)
+		s, _ := json.MarshalIndent(bitcoin, "", "	")
+		fmt.Fprintf(writer, string(s))
 
 	}).Methods("GET")
 
 	r.HandleFunc("/transaction", func(writer http.ResponseWriter, request *http.Request) {
 
-		
+
 
 	}).Methods("POST")
 
@@ -75,7 +81,7 @@ func main() {
 
 		fmt.Fprint(writer, bitcoin)
 
-	})
+	}).Methods("GET")
 
 	r.HandleFunc("/receive-new-block", func(writer http.ResponseWriter, request *http.Request) {
 
@@ -146,10 +152,16 @@ func main() {
 
 	r.HandleFunc("/register-nodes-bulk", func(writer http.ResponseWriter, request *http.Request) {
 
+
+		println("USO SAMMMMMM")
+
+
 		if request.Body == nil {
 			http.Error(writer, "Please send a request body", 400)
 			return
 		}
+
+		println("Body nije nil")
 
 		type RequestData struct {
 			NewNodesUrls []string `json: "newNodesUrls"`
@@ -160,10 +172,14 @@ func main() {
 		err := json.NewDecoder(request.Body).Decode(&nodes)
 		if err != nil {
 			http.Error(writer, err.Error(), 400)
+			print("Lose dekodiranje")
 			return
 		}
 
 		for _, node := range nodes.NewNodesUrls {
+
+			println("Nodovi koji cekaju da budu dodati: ")
+			println(node)
 
 			var nodeNotAlreadyPresent = bitcoin.NodeNotPresent(node)
 			var notCurrentNode = bitcoin.CurrentNodeUrl != node
@@ -198,6 +214,7 @@ func main() {
 
 		println("\nNew node url: " + newNode.NewNodeUrl)
 
+		//registrovanje novog noda
 		var nodeNotAlreadyPresent = bitcoin.NodeNotPresent(newNode.NewNodeUrl)
 		var notCurrentNode = bitcoin.CurrentNodeUrl != newNode.NewNodeUrl
 
@@ -208,71 +225,70 @@ func main() {
 			writer.Write([]byte("New block rejected."))
 		}
 
+
+		//broadcastovanje novog noda svim nodovima u mrezi
 		for _, node := range bitcoin.NetworkNodes {
 
-			dataJson, err := json.Marshal(&newNode)
-			if err!=nil{
-				panic(err)
+			if node != bitcoin.CurrentNodeUrl {
+				dataJson, err := json.Marshal(&newNode)
+				if err != nil {
+					panic(err)
+				}
+				req, _ := http.NewRequest("POST", node+"/register-node", bytes.NewBuffer(dataJson))
+				client := &http.Client{}
+				resp, err := client.Do(req)
+				if err != nil {
+					panic(err)
+				}
+				defer resp.Body.Close()
+				writer.Write([]byte("New block registered successfully."))
 			}
-			req,_ := http.NewRequest("POST", node + "/register-node", bytes.NewBuffer(dataJson))
-			client := &http.Client{}
-			resp, err := client.Do(req)
-			if err!=nil{
-				panic(err)
-			}
-			defer resp.Body.Close()
-			writer.Write([]byte("New block registered successfully."))
 		}
 
 
+		type SendingData struct {
+			nodes []string `json: "newNodesUrls"`
+		}
+
+		type WrapperSendingData struct{
+			wrappedRequest *SendingData
+		}
+
+		//slanje svih nodova iz mreze novom nodu
+		var nodesToBroadcast *SendingData
+
+		for _, node := range bitcoin.NetworkNodes{
+			nodesToBroadcast.nodes = append(nodesToBroadcast.nodes, node)
+			print(node)
+		}
+
+		println(newNode.NewNodeUrl)
+
+		dataJson, err := json.Marshal(&nodesToBroadcast)
+		if err != nil{
+			panic(err)
+		}
+
+
+		req, _ := http.NewRequest("POST", newNode.NewNodeUrl + "/register-nodes-bulk", bytes.NewBuffer(dataJson))
+		client := &http.Client{}
+		resp,err := client.Do(req)
+		if err != nil{
+			panic(err)
+		}
+		defer resp.Body.Close()
+		writer.Write([]byte("New node synchronized successfully."))
 
 	}).Methods("POST")
 
-	/*
-
-	app.post('/register-and-broadcast-node', function(req, res){
-
-		const newNodeUrl = req.body.newNodeUrl;
-		if(bitcoin.networkNodes.indexOf(newNodeUrl) == -1)
-			bitcoin.networkNodes.push(newNodeUrl);
-
-		const regNodesPromises = [];
-		bitcoin.networkNodes.forEach(networkNodeUrl => {
-			const requestOptions = {
-			uri: networkNodeUrl + '/register-node',
-			method: 'POST',
-			body: {newNodeUrl: newNodeUrl},
-			json: true
-			};
-			regNodesPromises.push(rp(requestOptions));
-		});
-
-		Promise.all(regNodesPromises)
-		.then(data => {
-			const bulkRegisterOptions = {
-			uri: newNodeUrl+'/register-nodes-bulk',
-			method: 'POST',
-			body: {allNetworkNodes: [...bitcoin.networkNodes, bitcoin.currentNodeUrl]},
-	json:true
-	};
-	return rp(bulkRegisterOptions);
-	})
-	.then(data => {
-	res.json({note: "New node registered with network successfully"});
-	})
-
-	});
-
-*/
 
 	r.HandleFunc("/check", func(writer http.ResponseWriter, request *http.Request) {
 
 		bitcoin.LoadData()
-		fmt.Fprint(writer, bitcoin)
+		fmt.Fprintf(writer, "%+v", bitcoin)
 
 	}).Methods("GET")
 
-	
-	http.ListenAndServe(":8000", r)
 
+	http.ListenAndServe(":8000", r)
 }

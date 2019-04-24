@@ -2,7 +2,7 @@
 		"Chain": [
 				{
 						"Index": 1,
-						"Timestamp": "2019-04-19T15:35:15.315204663+02:00",
+						"Timestamp": "2019-04-24T12:29:19.240303238+02:00",
 						"Transactions": null,
 						"Nonce": 100,
 						"Hash": "0",
@@ -10,11 +10,9 @@
 				}
 		],
 		"PendingTransactions": null,
-		"CurrentNodeUrl": "",
+		"CurrentNodeUrl": "http://localhost:8000",
 		"NetworkNodes": [
-				"http://localhost:8001",
 				"http://localhost:8000",
-				"http://localhost:8002",
-				"http://localhost:8004"
+				"http://localhost:8001"
 		]
 }
