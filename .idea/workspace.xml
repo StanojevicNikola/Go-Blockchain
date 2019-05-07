@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0d1c7e90-6156-460a-89fb-c8e40b205f38" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blockchain.json" beforeDir="false" afterPath="$PROJECT_DIR$/blockchain.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/structs/Blockchain/Blockchain.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/structs/Blockchain/Blockchain.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/structs/Node/Node.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/structs/Node/Node.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/structs/Wallet/Wallet.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/structs/Wallet/Wallet.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,30 +33,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/structs/Blockchain/Blockchain.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="12" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="12" />
-              <folding>
-                <element signature="e#20#161#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/structs/Node/Node.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="269">
-              <caret line="63" column="65" lean-forward="true" selection-start-line="63" selection-start-column="65" selection-end-line="63" selection-end-column="65" />
-              <folding>
-                <element signature="e#14#172#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="2235">
+              <caret line="184" column="32" selection-start-line="184" selection-start-column="32" selection-end-line="184" selection-end-column="32" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/structs/Block/Block.go">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="6" column="1" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
+              <folding>
+                <element signature="e#16#52#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -69,21 +64,26 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/blockchain.json">
+        <entry file="file://$PROJECT_DIR$/src/structs/Wallet/Wallet.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="16" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
+            <state relative-caret-position="289">
+              <caret line="68" column="9" selection-start-line="68" selection-start-column="9" selection-end-line="68" selection-end-column="9" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/structs/Wallet/Wallet.go">
+        <entry file="file://$PROJECT_DIR$/src/structs/Node/Node.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="535">
-              <caret line="85" selection-start-line="85" selection-end-line="85" />
+            <state relative-caret-position="306">
+              <caret line="30" column="18" selection-start-line="30" selection-start-column="18" selection-end-line="30" selection-end-column="18" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/structs/Node/wallet-8000.json">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -98,8 +98,11 @@
         <option value="$PROJECT_DIR$/src/structs/Transaction/Transaction.go" />
         <option value="$PROJECT_DIR$/src/test.go" />
         <option value="$PROJECT_DIR$/src/structs/Wallet/Wallet.go" />
+        <option value="$PROJECT_DIR$/src/structs/Node/wallet-8002.json" />
+        <option value="$PROJECT_DIR$/src/structs/Node/wallet-8001.json" />
         <option value="$PROJECT_DIR$/src/structs/Blockchain/Blockchain.go" />
         <option value="$PROJECT_DIR$/src/structs/Node/Node.go" />
+        <option value="$PROJECT_DIR$/src/structs/Node/wallet-8000.json" />
       </list>
     </option>
   </component>
@@ -113,17 +116,18 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="56" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="67" />
     <option name="y" value="57" />
-    <option name="width" value="1221" />
-    <option name="height" value="684" />
+    <option name="width" value="1161" />
+    <option name="height" value="653" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -149,11 +153,17 @@
               <item name="structs" type="462c0819:PsiDirectoryNode" />
               <item name="Block" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="VST" type="b2602c69:ProjectViewProjectNode" />
+              <item name="VST" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="structs" type="462c0819:PsiDirectoryNode" />
+              <item name="Node" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -193,6 +203,7 @@
     <configuration name="go build Node.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="VST" />
       <working_directory value="$PROJECT_DIR$/" />
+      <parameters value="8000" />
       <kind value="FILE" />
       <filePath value="$PROJECT_DIR$/src/structs/Node/Node.go" />
       <directory value="$PROJECT_DIR$/" />
@@ -206,6 +217,11 @@
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Go Build.go build Blockchain.go" />
+      <item itemvalue="Go Build.go build Node.go" />
+      <item itemvalue="Go Build.go build test.go" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Go Build.go build Node.go" />
@@ -215,15 +231,15 @@
     </recent_temporary>
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="27" width="1299" height="741" extended-state="7" />
+    <frame x="67" y="27" width="1299" height="741" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17979316" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17104216" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.20967741" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.20967741" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -260,26 +276,6 @@
     <entry file="file://$PROJECT_DIR$/wallet-1233.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/structs/Blockchain/Blockchain.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="12" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="12" />
-          <folding>
-            <element signature="e#20#161#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/structs/Block/Block.go">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/structs/Wallet/Wallet.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="535">
-          <caret line="85" selection-start-line="85" selection-end-line="85" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/blockchain.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -297,15 +293,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/structs/Node/Node.go">
+    <entry file="file://$PROJECT_DIR$/src/structs/Node/wallet-8001.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/structs/Node/wallet-8002.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/structs/Node/private_key.pem">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/structs/Wallet/Wallet.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="63" column="65" lean-forward="true" selection-start-line="63" selection-start-column="65" selection-end-line="63" selection-end-column="65" />
+        <state relative-caret-position="289">
+          <caret line="68" column="9" selection-start-line="68" selection-start-column="9" selection-end-line="68" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/structs/Block/Block.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="1" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
           <folding>
-            <element signature="e#14#172#0" expanded="true" />
+            <element signature="e#16#52#0" expanded="true" />
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/structs/Node/blockchain.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/structs/Blockchain/Blockchain.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2235">
+          <caret line="184" column="32" selection-start-line="184" selection-start-column="32" selection-end-line="184" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/structs/Node/Node.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="30" column="18" selection-start-line="30" selection-start-column="18" selection-end-line="30" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/structs/Node/wallet-8000.json">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
 </project>

@@ -1,0 +1,18 @@
+{
+		"Chain": [
+				{
+						"Index": 1,
+						"Timestamp": "2019-04-30T15:56:30.628278605+02:00",
+						"Transactions": null,
+						"Nonce": 100,
+						"Hash": "0",
+						"PreviousBlockHash": "0"
+				}
+		],
+		"PendingTransactions": null,
+		"CurrentNodeUrl": "http://localhost:8000",
+		"NetworkNodes": [
+				"http://localhost:8000"
+		],
+		"PublicKey": null
+}

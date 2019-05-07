@@ -2,42 +2,16 @@
 		"Chain": [
 				{
 						"Index": 1,
-						"Timestamp": "2019-04-24T16:17:06.692866113+02:00",
+						"Timestamp": "2019-04-27T17:56:28.891911667+02:00",
 						"Transactions": null,
 						"Nonce": 100,
 						"Hash": "0",
 						"PreviousBlockHash": "0"
-				},
-				{
-						"Index": 2,
-						"Timestamp": "2019-04-24T16:18:45.264954024+02:00",
-						"Transactions": [
-								{
-										"Amount": 324234,
-										"Sender": "NINA",
-										"Recipient": "DICA",
-										"TransactionID": "#################",
-										"Signature": "ANDRA CAR"
-								}
-						],
-						"Nonce": 16988,
-						"Hash": "0000b82d277e2a805061fbe3721673bed08e448efe29b1bc606a3faf484cc5a3",
-						"PreviousBlockHash": "0"
 				}
 		],
-		"PendingTransactions": [
-				{
-						"Amount": 324234,
-						"Sender": "NINA",
-						"Recipient": "DICA",
-						"TransactionID": "#################",
-						"Signature": "ANDRA CAR"
-				}
-		],
+		"PendingTransactions": null,
 		"CurrentNodeUrl": "http://localhost:8000",
 		"NetworkNodes": [
-				"http://localhost:8000",
-				"http://localhost:8002",
-				"http://localhost:8001"
+				"http://localhost:8000"
 		]
 }

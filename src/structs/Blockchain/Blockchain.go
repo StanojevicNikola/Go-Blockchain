@@ -4,6 +4,7 @@ import (
 	"../Block"
 	"../Transaction"
 	"../Wallet"
+	"crypto/rsa"
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
@@ -18,6 +19,7 @@ type Blockchain struct {
 	PendingTransactions []Transaction.Transaction
 	CurrentNodeUrl string
 	NetworkNodes []string
+	PublicKey *rsa.PublicKey
 }
 
 func (b *Blockchain) CreateGenesisBlock(){
@@ -158,7 +160,14 @@ func (b* Blockchain) ChainIsValid() bool{
 	return validChain
 }
 
+/*
+	mora da se sredi da se lanac automatski sinhronizuje kad cvor udje u mrezu
+	plus, sad se desava da kad dva cvora imaju lance iste duzine ne zna se koji da se uzme
+*/
 
+
+
+//sredi da se ne pravi novi json fajl u poslednjem Node folderu, nego globalno
 func (b *Blockchain) SaveData() {
 
 	f, err := os.OpenFile("blockchain.json", os.O_WRONLY|os.O_CREATE | os.O_TRUNC, 0755)
@@ -172,7 +181,7 @@ func (b *Blockchain) SaveData() {
 	f.Write(currentBlockchain)
 	f.Close()
 }
-
+//Initialize blockchain + open transactions data from a file.
 func (b* Blockchain) LoadData(){
 	jsonFile, err := os.OpenFile("blockchain.json", os.O_RDONLY, 0755)
 	if err != nil{
@@ -206,4 +215,3 @@ func (b* Blockchain) VerifyTransaction(transaction Transaction.Transaction) bool
 	valid := (sender_balance>=transaction.Amount) && Wallet.VerifyTransaction(transaction)
 	return valid
 }
-

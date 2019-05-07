@@ -47,11 +47,11 @@ func (w *Wallet) GenerateKeys(){
 		fmt.Print(err)
 		os.Exit(1)
 	}
-	pemPrivateFile.Close()
 
+	pemPrivateFile.Close()
 }
 
-func (w* Wallet) SaveKeys(){
+func (w* Wallet) SaveKeys()bool{
 
 	if w.PublicKey != nil && w.PrivateKey != nil{
 
@@ -59,22 +59,27 @@ func (w* Wallet) SaveKeys(){
 		f,err := os.OpenFile(fileName, os.O_WRONLY | os.O_CREATE, 0755)
 		if err != nil{
 			panic(err)
+			//return false
 		}
 
 		currentWallet, err := json.MarshalIndent(&w, "", "		")
 		if err != nil{
+			//return false
 			panic(err)
 		}
 		f.Write(currentWallet)
 		f.Close()
+		return true
 	}
+	return true
 }
 
-func (w* Wallet) LoadKeys(){
+func (w* Wallet) LoadKeys() bool{
 
 	fileName := "wallet-"+ w.NodeID +".json"
 	f,err := os.OpenFile(fileName, os.O_RDONLY, 0755)
 	if err != nil{
+		return false
 		panic(err)
 	}
 
@@ -82,6 +87,8 @@ func (w* Wallet) LoadKeys(){
 
 	byteValue, _ := ioutil.ReadAll(f)
 	json.Unmarshal(byteValue, &w)
+
+	return true
 }
 
 func (w *Wallet) SignTransaction(sender string, recipient string, amount float64) (string){

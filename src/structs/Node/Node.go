@@ -4,13 +4,16 @@ import (
 	"../Block"
 	"../Blockchain"
 	"../Transaction"
+	"../Wallet"
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/google/uuid"
+	"log"
 	"net/http"
+	"os"
 	"src/github.com/gorilla/mux"
 )
+
 
 type BlockData struct{
 	Transactions []Transaction.Transaction
@@ -19,12 +22,13 @@ type BlockData struct{
 
 func main() {
 
+	//bitcoin nastaje POSTovanjem novog walleta
+
+	var port = os.Args[1]
+	Wallet := Wallet.Wallet{NodeID:port}
 	bitcoin := Blockchain.Blockchain{}
-	bitcoin.CreateGenesisBlock()
-	bitcoin.CurrentNodeUrl = "http://localhost:8000"
-	bitcoin.NetworkNodes = append(bitcoin.NetworkNodes, bitcoin.CurrentNodeUrl)
-	nodeID, _ := uuid.NewUUID()
-	fmt.Print(nodeID)
+	//bitcoin.LoadData()
+	println("Listening on port " + port + "...")
 
 	r := mux.NewRouter()
 
@@ -32,10 +36,11 @@ func main() {
 
 		bitcoin.SaveData()
 		s, _ := json.MarshalIndent(bitcoin, "", "	")
-		fmt.Fprintf(writer, string(s))
+
+		writer.Write([]byte(s))
+
 
 	}).Methods("GET")
-
 
 
 	r.HandleFunc("/transaction", func(writer http.ResponseWriter, request *http.Request) {
@@ -293,10 +298,6 @@ func main() {
 		// sve cvorove iz mreze saljemo novom cvoru
 		nodesToBroadcast := bitcoin.NetworkNodes[:]
 
-		/*for _, node := range bitcoin.NetworkNodes{
-			nodesToBroadcast = append(nodesToBroadcast, node)
-		}*/
-
 		print("Poslati cvorovi: ")
 		for _, node := range nodesToBroadcast{
 			println(node)
@@ -323,10 +324,111 @@ func main() {
 	r.HandleFunc("/check", func(writer http.ResponseWriter, request *http.Request) {
 
 		bitcoin.LoadData()
-		fmt.Fprintf(writer, "%+v", bitcoin)
+		s, _ := json.MarshalIndent(bitcoin, "", "	")
+		fmt.Fprintf(writer, "%+v", string(s))
 
 	}).Methods("GET")
 
 
-	http.ListenAndServe(":8000", r)
+	r.HandleFunc("/consensus", func(writer http.ResponseWriter, request *http.Request) {
+
+		winnerChain := bitcoin.Chain
+		var replace = false
+		maxChainLen := len(bitcoin.Chain)
+
+		NewPendingTransactions := []Transaction.Transaction{}
+
+		for _, node := range bitcoin.NetworkNodes{
+			if node == bitcoin.CurrentNodeUrl{
+				continue
+			}
+
+			//dohvatanje lanaca svih cvorova iz mreze
+			req, _ := http.NewRequest("GET", node + "/blockchain", nil)
+			client := &http.Client{}
+			resp, err := client.Do(req)
+			if err != nil{
+				panic(err)
+			}
+			defer resp.Body.Close()
+			var newBlockchain Blockchain.Blockchain
+			err = json.NewDecoder(resp.Body).Decode(&newBlockchain)
+			if err != nil {
+				http.Error(writer, err.Error(), 400)
+				return
+			}
+
+			//provera da li je dobr poslat lanac
+			newEncoded, err := json.MarshalIndent(newBlockchain, "", "	")
+			if err != nil{
+				panic(err)
+			}
+			writer.Write(newEncoded)
+
+			//provera duzina i eventualno menjanje lanca
+			currentChainLen := len(newBlockchain.Chain)
+
+			if currentChainLen>maxChainLen{
+				winnerChain = newBlockchain.Chain
+				maxChainLen = currentChainLen
+				NewPendingTransactions = newBlockchain.PendingTransactions
+				replace = true
+			}
+		}
+
+		if replace == true{
+			bitcoin.Chain = winnerChain
+			bitcoin.PendingTransactions = NewPendingTransactions
+			writer.Write([]byte("Chain was replaced!"))
+		}else{
+			writer.Write([]byte("Chain was held!"))
+		}
+		bitcoin.SaveData()
+
+	}).Methods("GET")
+
+
+	//ucitavamo public i private key i to nam omogucava da inicijalizujemo blokchain koji je prethodno sacuvan
+
+	r.HandleFunc("/wallet", func(writer http.ResponseWriter, request *http.Request) {
+
+		if !Wallet.LoadKeys(){
+			log.Fatal("Loading wallet failed!")
+		}
+		bitcoin = Blockchain.Blockchain{
+			PublicKey:Wallet.PublicKey,
+			CurrentNodeUrl: "http://localhost:" + port,
+			NetworkNodes: []string{"http://localhost:" + port},
+		}
+		bitcoin.CreateGenesisBlock()
+		var balance = bitcoin.CalculateBalance(bitcoin.CurrentNodeUrl)
+		fmt.Fprintf(writer, "%+v\n", Wallet.PublicKey)
+		fmt.Fprintf(writer, "%+v\n", Wallet.PrivateKey)
+		fmt.Fprintf(writer, "%+v", balance)
+
+	}).Methods("GET")
+
+
+	//kad nemamo nikakav blockchain i krecemo od nule, pravimo wallet i njemu dodeljujemo blockchain
+	r.HandleFunc("/wallet", func(writer http.ResponseWriter, request *http.Request) {
+
+		Wallet.GenerateKeys()
+
+		if Wallet.SaveKeys(){
+			bitcoin = Blockchain.Blockchain{
+											PublicKey:Wallet.PublicKey,
+											CurrentNodeUrl: "http://localhost:" + port,
+											NetworkNodes: []string{"http://localhost:" + port},
+			}
+			bitcoin.CreateGenesisBlock()
+
+			fmt.Fprintf(writer, "%+v", bitcoin)
+		}else{
+			writer.Write([]byte("Saving keys failed"))
+		}
+
+	}).Methods("POST")
+
+
+	http.ListenAndServe(":"+port, r)
 }
