@@ -1,0 +1,53 @@
+{
+		"Chain": [
+				{
+						"Index": 1,
+						"Timestamp": "2019-05-20T18:33:58.566669102+02:00",
+						"Transactions": null,
+						"Nonce": 100,
+						"Hash": "0",
+						"PreviousBlockHash": "0"
+				},
+				{
+						"Index": 2,
+						"Timestamp": "2019-05-20T18:35:40.308661447+02:00",
+						"Transactions": [
+								{
+										"Amount": 200,
+										"Sender": "http://localhost:9001",
+										"Recipient": "http://localhost:9003",
+										"TransactionID": "e1be91",
+										"Signature": "9d143aa2f5a638769d89fde1e364b172ecef2f2976cbf0b85c7335470d26546fc5c5b15283da0a6574a2513caa458d3d0fcc1bfced078d47104d573af7609e37d51c8256d84a549d28fd3ffb8494f2cb9ebd6a7cd9dfb26e6785f50008d5fe1d4ef7f4b01ef22d3873234f652454993106147bdbd5a29e4766cca02b715cf06f"
+								},
+								{
+										"Amount": 200,
+										"Sender": "http://localhost:9001",
+										"Recipient": "http://localhost:9002",
+										"TransactionID": "e1bb8f",
+										"Signature": "b3dafe72fd75b59a3bdd8ae0d8d239203435809150d4668036f27e359cf8458ad62ab9b31eec6815524a7d80487192cdb32c9e3fec2ed62bdfb7f32f2b3e62b3080317a3c88c7f34b6f45a5e72b63cf29ad162f4f00eeac1cf86e0f22af96486cc62daa5f8b383b78650bf34fdfaa94f36fe5ad5f69f3b17a4cc4c0ed293680d"
+								},
+								{
+										"Amount": 12.5,
+										"Sender": "00",
+										"Recipient": "http://localhost:9003",
+										"TransactionID": "asdasdsa",
+										"Signature": "asdasd"
+								}
+						],
+						"Nonce": 93570,
+						"Hash": "0000e14a74560c6c3d9e34ecf1097a6cb6c6454106a3b755dd401b11206576df",
+						"PreviousBlockHash": "0"
+				}
+		],
+		"PendingTransactions": null,
+		"CurrentNodeUrl": "http://localhost:9001",
+		"NetworkNodes": [
+				"http://localhost:9001",
+				"http://localhost:9002",
+				"http://localhost:9003"
+		],
+		"PublicKey": {
+				"N": 171911839186882037413986848076672183771277481633472111262292614041615417872485052021962592255288630930924375242055947324428952959336969708853961581096689034634819610498769113562211231202110833564893023303984488331904535182414275276512945966616687569877064387446159491714925190488836503633644557260807384455951,
+				"E": 65537
+		}
+}

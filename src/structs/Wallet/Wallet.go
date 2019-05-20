@@ -56,7 +56,7 @@ func (w* Wallet) SaveKeys()bool{
 	if w.PublicKey != nil && w.PrivateKey != nil{
 
 		fileName := "wallet-" + w.NodeID + ".json"
-		f,err := os.OpenFile(fileName, os.O_WRONLY | os.O_CREATE, 0755)
+		f,err := os.OpenFile(fileName, os.O_WRONLY | os.O_CREATE | os.O_TRUNC, 0755)
 		if err != nil{
 			panic(err)
 			//return false

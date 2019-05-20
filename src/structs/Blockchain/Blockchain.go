@@ -170,7 +170,7 @@ func (b* Blockchain) ChainIsValid() bool{
 //sredi da se ne pravi novi json fajl u poslednjem Node folderu, nego globalno
 func (b *Blockchain) SaveData() {
 
-	f, err := os.OpenFile("blockchain.json", os.O_WRONLY|os.O_CREATE | os.O_TRUNC, 0755)
+	f, err := os.OpenFile("blockchain-"+ b.CurrentNodeUrl[17:] +".json", os.O_WRONLY | os.O_CREATE | os.O_TRUNC, 0755)
 	if err != nil{
 		panic(err)
 	}
@@ -183,7 +183,7 @@ func (b *Blockchain) SaveData() {
 }
 //Initialize blockchain + open transactions data from a file.
 func (b* Blockchain) LoadData(){
-	jsonFile, err := os.OpenFile("blockchain.json", os.O_RDONLY, 0755)
+	jsonFile, err := os.OpenFile("blockchain-"+ b.CurrentNodeUrl[17:] +".json", os.O_RDONLY, 0755)
 	if err != nil{
 		panic(err)
 	}
