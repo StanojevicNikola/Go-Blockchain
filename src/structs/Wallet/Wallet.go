@@ -101,6 +101,7 @@ func (w *Wallet) SignTransaction(sender string, recipient string, amount float64
 	return hex.EncodeToString(signer)
 }
 
+
 func VerifyTransaction(transaction Transaction.Transaction) bool{
 	privateKeyFile, err := os.Open("private_key.pem")
 
