@@ -18,7 +18,7 @@
 + `crypto/rsa` `crypto/x509` - encoded keys and certificates
 + `crypto/sha256` - hashing and validation algorithms
 + `github.com/gorilla/mux` - http server functionalities
-+ `vue.js` - javaScript framework for GUI
++ `vue.js` - JavaScript framework for GUI
 
 ## Team 
 + Nikola Stanojević
