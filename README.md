@@ -8,8 +8,17 @@
 + Standard blockchain functionalities: mining new blocks, analysis and verification of blocks using Proof of Work and/or Proof of Stake algorithm, storing chain to disk
 + Performing transactions between nodes, using Merkle trees for protection, also implementing wallets to keep track of nodes balances, transaction logs
 
+## Usage
++ run this command from terminal: `./Node {port}`
+
 ## Programming language
 + Go
+
+## Non-standard libraries
++ `crypto/rsa` `crypto/x509` - encoded keys and certificates
++ `crypto/sha256` - hashing and validation algorithms
++ `github.com/gorilla/mux` - http server functionalities
++ `vue.js` - javaScript framework for GUI
 
 ## Team 
 + Nikola Stanojević
