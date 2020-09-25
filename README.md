@@ -20,9 +20,6 @@
 + `github.com/gorilla/mux` - http server functionalities
 + `vue.js` - JavaScript framework for GUI
 
-## Usage example
-(example)[screenshot.png]
-
 ## Team 
 + Nikola Stanojević
 + Mateja Trtica
