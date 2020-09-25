@@ -1,4 +1,4 @@
-# goBlockchain
+# GoBlockchain
 
 
 ## Project summary
@@ -19,6 +19,9 @@
 + `crypto/sha256` - hashing and validation algorithms
 + `github.com/gorilla/mux` - http server functionalities
 + `vue.js` - JavaScript framework for GUI
+
+## Usage example
+(example)[screenshot.png]
 
 ## Team 
 + Nikola Stanojević
